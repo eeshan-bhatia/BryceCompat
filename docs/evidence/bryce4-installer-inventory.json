@@ -1,0 +1,1264 @@
+{
+  "compatibility": "NOT TESTED",
+  "errors": [],
+  "files": [
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "Bryce4 ReadMe.txt",
+      "sha256": "34b38ea90600963b6d4c18bc195c07b805d350c2167a4101c16872e7735072ed",
+      "size": 25156
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "note": "CAB filename candidate; package not extracted",
+      "path": "data1.cab",
+      "sha256": "638ceb04d2c6c8aa4d880f91ea8f77563df9b4575d60b1fdeb757af962062851",
+      "size": 39064305
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "data1.hdr",
+      "sha256": "a82e4a68f71ac73e4831c1736dcba50995408e7ae3d7d670aaa4ec008e70fa3e",
+      "size": 15284
+    },
+    {
+      "analysis": {
+        "architecture": "x86",
+        "format": "PE32",
+        "imports": [
+          {
+            "dll": "VERSION.dll",
+            "functions": [
+              {
+                "name": "VerLanguageNameA"
+              }
+            ]
+          },
+          {
+            "dll": "KERNEL32.dll",
+            "functions": [
+              {
+                "name": "GetModuleHandleA"
+              },
+              {
+                "name": "GetSystemInfo"
+              },
+              {
+                "name": "GetVersionExA"
+              },
+              {
+                "name": "DeleteFileA"
+              },
+              {
+                "name": "GetModuleFileNameA"
+              },
+              {
+                "name": "GetWindowsDirectoryA"
+              },
+              {
+                "name": "WriteFile"
+              },
+              {
+                "name": "GetDiskFreeSpaceA"
+              },
+              {
+                "name": "WritePrivateProfileStringA"
+              },
+              {
+                "name": "FindClose"
+              },
+              {
+                "name": "FindFirstFileA"
+              },
+              {
+                "name": "IsDBCSLeadByte"
+              },
+              {
+                "name": "SetFilePointer"
+              },
+              {
+                "name": "ReadFile"
+              },
+              {
+                "name": "GetPrivateProfileIntA"
+              },
+              {
+                "name": "GetLastError"
+              },
+              {
+                "name": "GetTickCount"
+              },
+              {
+                "name": "lstrcmpiA"
+              },
+              {
+                "name": "GetPrivateProfileStringA"
+              },
+              {
+                "name": "lstrcatA"
+              },
+              {
+                "name": "FindResourceA"
+              },
+              {
+                "name": "GlobalHandle"
+              },
+              {
+                "name": "GetUserDefaultLCID"
+              },
+              {
+                "name": "LoadLibraryA"
+              },
+              {
+                "name": "GetProfileStringA"
+              },
+              {
+                "name": "SetErrorMode"
+              },
+              {
+                "name": "GetFileSize"
+              },
+              {
+                "name": "FreeLibrary"
+              },
+              {
+                "name": "CreateFileA"
+              },
+              {
+                "name": "GlobalLock"
+              },
+              {
+                "name": "GlobalAlloc"
+              },
+              {
+                "name": "CloseHandle"
+              },
+              {
+                "name": "GlobalFree"
+              },
+              {
+                "name": "_hread"
+              },
+              {
+                "name": "GlobalUnlock"
+              },
+              {
+                "name": "CreateDirectoryA"
+              },
+              {
+                "name": "lstrlenA"
+              },
+              {
+                "name": "lstrcpyA"
+              },
+              {
+                "name": "WinExec"
+              },
+              {
+                "name": "GetDriveTypeA"
+              },
+              {
+                "name": "SetStdHandle"
+              },
+              {
+                "name": "VirtualAlloc"
+              },
+              {
+                "name": "LCMapStringW"
+              },
+              {
+                "name": "GetProcAddress"
+              },
+              {
+                "name": "HeapFree"
+              },
+              {
+                "name": "HeapAlloc"
+              },
+              {
+                "name": "LCMapStringA"
+              },
+              {
+                "name": "CompareStringW"
+              },
+              {
+                "name": "CompareStringA"
+              },
+              {
+                "name": "SetEnvironmentVariableA"
+              },
+              {
+                "name": "GetStringTypeA"
+              },
+              {
+                "name": "RtlUnwind"
+              },
+              {
+                "name": "GetStringTypeW"
+              },
+              {
+                "name": "HeapCreate"
+              },
+              {
+                "name": "HeapReAlloc"
+              },
+              {
+                "name": "VirtualFree"
+              },
+              {
+                "name": "FlushFileBuffers"
+              },
+              {
+                "name": "GetFileType"
+              },
+              {
+                "name": "GetStdHandle"
+              },
+              {
+                "name": "SetHandleCount"
+              },
+              {
+                "name": "GetOEMCP"
+              },
+              {
+                "name": "GetACP"
+              },
+              {
+                "name": "GetCPInfo"
+              },
+              {
+                "name": "GetEnvironmentStringsW"
+              },
+              {
+                "name": "GetEnvironmentStrings"
+              },
+              {
+                "name": "FreeEnvironmentStringsW"
+              },
+              {
+                "name": "MultiByteToWideChar"
+              },
+              {
+                "name": "FreeEnvironmentStringsA"
+              },
+              {
+                "name": "UnhandledExceptionFilter"
+              },
+              {
+                "name": "WideCharToMultiByte"
+              },
+              {
+                "name": "GetVersion"
+              },
+              {
+                "name": "GetCommandLineA"
+              },
+              {
+                "name": "GetStartupInfoA"
+              },
+              {
+                "name": "GetCurrentProcess"
+              },
+              {
+                "name": "TerminateProcess"
+              },
+              {
+                "name": "HeapDestroy"
+              },
+              {
+                "name": "ExitProcess"
+              }
+            ]
+          },
+          {
+            "dll": "USER32.dll",
+            "functions": [
+              {
+                "name": "DestroyWindow"
+              },
+              {
+                "name": "EndDialog"
+              },
+              {
+                "name": "DrawIcon"
+              },
+              {
+                "name": "GetWindowPlacement"
+              },
+              {
+                "name": "GetDlgItem"
+              },
+              {
+                "name": "DialogBoxParamA"
+              },
+              {
+                "name": "DestroyIcon"
+              },
+              {
+                "name": "SetRectEmpty"
+              },
+              {
+                "name": "FillRect"
+              },
+              {
+                "name": "LoadStringA"
+              },
+              {
+                "name": "wsprintfA"
+              },
+              {
+                "name": "LoadIconA"
+              },
+              {
+                "name": "SetWindowTextA"
+              },
+              {
+                "name": "InflateRect"
+              },
+              {
+                "name": "SendMessageA"
+              },
+              {
+                "name": "SetWindowLongA"
+              },
+              {
+                "name": "BeginPaint"
+              },
+              {
+                "name": "EndPaint"
+              },
+              {
+                "name": "DefWindowProcA"
+              },
+              {
+                "name": "GetWindowLongA"
+              },
+              {
+                "name": "GetDC"
+              },
+              {
+                "name": "ReleaseDC"
+              },
+              {
+                "name": "InvalidateRect"
+              },
+              {
+                "name": "LoadCursorA"
+              },
+              {
+                "name": "GetClassInfoA"
+              },
+              {
+                "name": "RegisterClassA"
+              },
+              {
+                "name": "CharUpperA"
+              },
+              {
+                "name": "GetMessageA"
+              },
+              {
+                "name": "IsDialogMessageA"
+              },
+              {
+                "name": "TranslateMessage"
+              },
+              {
+                "name": "DispatchMessageA"
+              },
+              {
+                "name": "PeekMessageA"
+              },
+              {
+                "name": "MessageBoxA"
+              },
+              {
+                "name": "PostMessageA"
+              },
+              {
+                "name": "FindWindowA"
+              },
+              {
+                "name": "SubtractRect"
+              },
+              {
+                "name": "SetWindowPos"
+              },
+              {
+                "name": "GetClassNameA"
+              },
+              {
+                "name": "IntersectRect"
+              },
+              {
+                "name": "EqualRect"
+              },
+              {
+                "name": "DrawTextA"
+              },
+              {
+                "name": "GetWindow"
+              },
+              {
+                "name": "ScreenToClient"
+              },
+              {
+                "name": "GetClientRect"
+              },
+              {
+                "name": "UpdateWindow"
+              },
+              {
+                "name": "SetTimer"
+              },
+              {
+                "name": "ShowWindow"
+              },
+              {
+                "name": "IsWindow"
+              },
+              {
+                "name": "RegisterWindowMessageA"
+              },
+              {
+                "name": "CreateDialogParamA"
+              },
+              {
+                "name": "GetSystemMetrics"
+              },
+              {
+                "name": "CharNextA"
+              },
+              {
+                "name": "GetParent"
+              },
+              {
+                "name": "GetWindowRect"
+              },
+              {
+                "name": "GetWindowTextLengthA"
+              },
+              {
+                "name": "GetWindowTextA"
+              },
+              {
+                "name": "SetRect"
+              },
+              {
+                "name": "MoveWindow"
+              },
+              {
+                "name": "GetSysColor"
+              },
+              {
+                "name": "PostQuitMessage"
+              },
+              {
+                "name": "CreateWindowExA"
+              }
+            ]
+          },
+          {
+            "dll": "GDI32.dll",
+            "functions": [
+              {
+                "name": "RestoreDC"
+              },
+              {
+                "name": "SelectObject"
+              },
+              {
+                "name": "DeleteObject"
+              },
+              {
+                "name": "GetObjectA"
+              },
+              {
+                "name": "SaveDC"
+              },
+              {
+                "name": "CreateFontIndirectA"
+              },
+              {
+                "name": "MoveToEx"
+              },
+              {
+                "name": "CreatePen"
+              },
+              {
+                "name": "LineTo"
+              },
+              {
+                "name": "SetBkColor"
+              },
+              {
+                "name": "SetTextColor"
+              },
+              {
+                "name": "ExtTextOutA"
+              },
+              {
+                "name": "CreateSolidBrush"
+              },
+              {
+                "name": "CreateDIBitmap"
+              },
+              {
+                "name": "GetTextMetricsA"
+              },
+              {
+                "name": "SelectPalette"
+              },
+              {
+                "name": "GetDeviceCaps"
+              },
+              {
+                "name": "RealizePalette"
+              },
+              {
+                "name": "GetSystemPaletteEntries"
+              },
+              {
+                "name": "UnrealizeObject"
+              },
+              {
+                "name": "CreatePalette"
+              },
+              {
+                "name": "BitBlt"
+              },
+              {
+                "name": "CreateCompatibleDC"
+              },
+              {
+                "name": "DeleteDC"
+              },
+              {
+                "name": "CreateRectRgn"
+              },
+              {
+                "name": "GetStockObject"
+              },
+              {
+                "name": "SelectClipRgn"
+              },
+              {
+                "name": "GetTextExtentPointA"
+              }
+            ]
+          }
+        ],
+        "is_dll": false,
+        "machine": 332,
+        "resources": [
+          {
+            "codepage": 0,
+            "path": [
+              3,
+              1,
+              1033
+            ],
+            "size": 744
+          },
+          {
+            "codepage": 0,
+            "path": [
+              5,
+              3002,
+              1033
+            ],
+            "size": 210
+          },
+          {
+            "codepage": 0,
+            "path": [
+              5,
+              7501,
+              1033
+            ],
+            "size": 94
+          },
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              442,
+              1033
+            ],
+            "size": 494
+          },
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              443,
+              1033
+            ],
+            "size": 170
+          },
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              445,
+              1033
+            ],
+            "size": 84
+          },
+          {
+            "codepage": 0,
+            "path": [
+              14,
+              7001,
+              1033
+            ],
+            "size": 20
+          },
+          {
+            "codepage": 0,
+            "file_version": "5.50.137.0",
+            "path": [
+              16,
+              1,
+              1033
+            ],
+            "size": 776
+          }
+        ],
+        "subsystem": 2,
+        "valid": true,
+        "warnings": []
+      },
+      "path": "Setup.exe",
+      "sha256": "a6d2f8b9173fd43f03aabff0b8cc3fadbd0b15224bcbe5f562a32158a297b502",
+      "size": 71680
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "SETUP.INI",
+      "sha256": "8e4caf1aae3b5c186c4ad3609bfcab68276972549a608887c523f0e44fca8201",
+      "size": 92
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "setup.ins",
+      "sha256": "37f604d9c958e9d7f53b658ef0dc395b025f86e946dc3c53e5c78a627d32f7ed",
+      "size": 64498
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "setup.lid",
+      "sha256": "708d29c649525882937031b3d73cc851b7b1bc30772eb4e0e2a71523908f2eb5",
+      "size": 49
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "_INST32I.EX_",
+      "sha256": "808c49409aa93932909b640ae85223e17ad617a57e734fc956c6c5bf79b7890f",
+      "size": 297989
+    },
+    {
+      "analysis": {
+        "architecture": "x86",
+        "format": "PE32",
+        "imports": [
+          {
+            "dll": "KERNEL32.dll",
+            "functions": [
+              {
+                "name": "RemoveDirectoryA"
+              },
+              {
+                "name": "DeleteFileA"
+              },
+              {
+                "name": "GlobalLock"
+              },
+              {
+                "name": "GlobalAlloc"
+              },
+              {
+                "name": "GetWindowsDirectoryA"
+              },
+              {
+                "name": "GetTickCount"
+              },
+              {
+                "name": "CloseHandle"
+              },
+              {
+                "name": "CreateFileA"
+              },
+              {
+                "name": "SetErrorMode"
+              },
+              {
+                "name": "GetPrivateProfileIntA"
+              },
+              {
+                "name": "GetPrivateProfileStringA"
+              },
+              {
+                "name": "lstrcmpiA"
+              },
+              {
+                "name": "WritePrivateProfileStringA"
+              },
+              {
+                "name": "GetModuleHandleA"
+              },
+              {
+                "name": "lstrcatA"
+              },
+              {
+                "name": "lstrcpyA"
+              },
+              {
+                "name": "GetModuleFileNameA"
+              },
+              {
+                "name": "FreeEnvironmentStringsA"
+              },
+              {
+                "name": "GetProcAddress"
+              },
+              {
+                "name": "VirtualAlloc"
+              },
+              {
+                "name": "LoadLibraryA"
+              },
+              {
+                "name": "GetStringTypeA"
+              },
+              {
+                "name": "LCMapStringW"
+              },
+              {
+                "name": "GetStringTypeW"
+              },
+              {
+                "name": "HeapAlloc"
+              },
+              {
+                "name": "HeapFree"
+              },
+              {
+                "name": "LCMapStringA"
+              },
+              {
+                "name": "RtlUnwind"
+              },
+              {
+                "name": "VirtualFree"
+              },
+              {
+                "name": "WriteFile"
+              },
+              {
+                "name": "HeapDestroy"
+              },
+              {
+                "name": "GetFileType"
+              },
+              {
+                "name": "HeapCreate"
+              },
+              {
+                "name": "GetLastError"
+              },
+              {
+                "name": "Sleep"
+              },
+              {
+                "name": "GetStartupInfoA"
+              },
+              {
+                "name": "GetCommandLineA"
+              },
+              {
+                "name": "GetVersion"
+              },
+              {
+                "name": "ExitProcess"
+              },
+              {
+                "name": "TerminateProcess"
+              },
+              {
+                "name": "GetCurrentProcess"
+              },
+              {
+                "name": "UnhandledExceptionFilter"
+              },
+              {
+                "name": "WideCharToMultiByte"
+              },
+              {
+                "name": "GetEnvironmentStringsW"
+              },
+              {
+                "name": "MultiByteToWideChar"
+              },
+              {
+                "name": "FreeEnvironmentStringsW"
+              },
+              {
+                "name": "GetEnvironmentStrings"
+              },
+              {
+                "name": "SetHandleCount"
+              },
+              {
+                "name": "GetStdHandle"
+              },
+              {
+                "name": "GetCPInfo"
+              },
+              {
+                "name": "GetACP"
+              },
+              {
+                "name": "GetOEMCP"
+              }
+            ]
+          },
+          {
+            "dll": "USER32.dll",
+            "functions": [
+              {
+                "name": "CharNextA"
+              },
+              {
+                "name": "DefWindowProcA"
+              },
+              {
+                "name": "wsprintfA"
+              },
+              {
+                "name": "IsWindow"
+              },
+              {
+                "name": "RegisterWindowMessageA"
+              },
+              {
+                "name": "SetTimer"
+              },
+              {
+                "name": "PostQuitMessage"
+              },
+              {
+                "name": "RegisterClassA"
+              },
+              {
+                "name": "LoadIconA"
+              },
+              {
+                "name": "LoadCursorA"
+              },
+              {
+                "name": "GetMessageA"
+              },
+              {
+                "name": "GetSystemMetrics"
+              },
+              {
+                "name": "CreateWindowExA"
+              },
+              {
+                "name": "SendMessageA"
+              },
+              {
+                "name": "TranslateMessage"
+              },
+              {
+                "name": "DispatchMessageA"
+              }
+            ]
+          }
+        ],
+        "is_dll": false,
+        "machine": 332,
+        "resources": [
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              1,
+              1033
+            ],
+            "size": 44
+          },
+          {
+            "codepage": 0,
+            "file_version": "5.50.137.0",
+            "path": [
+              16,
+              1,
+              1033
+            ],
+            "size": 792
+          }
+        ],
+        "subsystem": 2,
+        "valid": true,
+        "warnings": []
+      },
+      "path": "_ISDel.exe",
+      "sha256": "6809453e3937309e8ab4d4089dfaf1ae7c7d2ef195dd0b7646303fb6abeb87da",
+      "size": 27648
+    },
+    {
+      "analysis": {
+        "architecture": "x86",
+        "format": "PE32",
+        "imports": [
+          {
+            "dll": "KERNEL32.dll",
+            "functions": [
+              {
+                "name": "GetEnvironmentStrings"
+              },
+              {
+                "name": "GetVersion"
+              },
+              {
+                "name": "ExitProcess"
+              },
+              {
+                "name": "TerminateProcess"
+              },
+              {
+                "name": "GetCurrentProcess"
+              },
+              {
+                "name": "GetCurrentThreadId"
+              },
+              {
+                "name": "TlsSetValue"
+              },
+              {
+                "name": "TlsAlloc"
+              },
+              {
+                "name": "TlsFree"
+              },
+              {
+                "name": "SetLastError"
+              },
+              {
+                "name": "TlsGetValue"
+              },
+              {
+                "name": "GetLastError"
+              },
+              {
+                "name": "SetHandleCount"
+              },
+              {
+                "name": "GetStdHandle"
+              },
+              {
+                "name": "GetFileType"
+              },
+              {
+                "name": "GetStartupInfoA"
+              },
+              {
+                "name": "DeleteCriticalSection"
+              },
+              {
+                "name": "GetModuleFileNameA"
+              },
+              {
+                "name": "GetCPInfo"
+              },
+              {
+                "name": "GetACP"
+              },
+              {
+                "name": "GetOEMCP"
+              },
+              {
+                "name": "FreeEnvironmentStringsA"
+              },
+              {
+                "name": "MultiByteToWideChar"
+              },
+              {
+                "name": "FreeEnvironmentStringsW"
+              },
+              {
+                "name": "GetCommandLineA"
+              },
+              {
+                "name": "GetEnvironmentStringsW"
+              },
+              {
+                "name": "WideCharToMultiByte"
+              },
+              {
+                "name": "HeapDestroy"
+              },
+              {
+                "name": "HeapCreate"
+              },
+              {
+                "name": "VirtualFree"
+              },
+              {
+                "name": "WriteFile"
+              },
+              {
+                "name": "InitializeCriticalSection"
+              },
+              {
+                "name": "EnterCriticalSection"
+              },
+              {
+                "name": "LeaveCriticalSection"
+              },
+              {
+                "name": "HeapAlloc"
+              },
+              {
+                "name": "HeapFree"
+              },
+              {
+                "name": "LCMapStringA"
+              },
+              {
+                "name": "LCMapStringW"
+              },
+              {
+                "name": "GetStringTypeA"
+              },
+              {
+                "name": "GetStringTypeW"
+              },
+              {
+                "name": "VirtualAlloc"
+              },
+              {
+                "name": "GetProcAddress"
+              },
+              {
+                "name": "LoadLibraryA"
+              },
+              {
+                "name": "FlushFileBuffers"
+              },
+              {
+                "name": "CloseHandle"
+              },
+              {
+                "name": "SetStdHandle"
+              },
+              {
+                "name": "SetFilePointer"
+              }
+            ]
+          }
+        ],
+        "is_dll": true,
+        "machine": 332,
+        "resources": [
+          {
+            "codepage": 0,
+            "path": [
+              3,
+              1,
+              1033
+            ],
+            "size": 744
+          },
+          {
+            "codepage": 0,
+            "path": [
+              3,
+              2,
+              1033
+            ],
+            "size": 744
+          },
+          {
+            "codepage": 0,
+            "path": [
+              5,
+              7500,
+              1033
+            ],
+            "size": 462
+          },
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              442,
+              1033
+            ],
+            "size": 2406
+          },
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              445,
+              1033
+            ],
+            "size": 92
+          },
+          {
+            "codepage": 0,
+            "path": [
+              6,
+              697,
+              1033
+            ],
+            "size": 42
+          },
+          {
+            "codepage": 0,
+            "path": [
+              14,
+              "SETUP_ICON1",
+              1033
+            ],
+            "size": 20
+          },
+          {
+            "codepage": 0,
+            "path": [
+              14,
+              "SETUP_ICON2",
+              1033
+            ],
+            "size": 20
+          },
+          {
+            "codepage": 0,
+            "file_version": "5.50.134.0",
+            "path": [
+              16,
+              1,
+              1033
+            ],
+            "size": 796
+          }
+        ],
+        "subsystem": 2,
+        "valid": true,
+        "warnings": []
+      },
+      "path": "_Setup.dll",
+      "sha256": "1ad637e80a25f6f885604589056814d16ccad55699be14920e2b99f2d74c1019",
+      "size": 34816
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "note": "CAB filename candidate; package not extracted",
+      "path": "_sys1.cab",
+      "sha256": "3fcd7a6bdb0d70c82974b74b2b0de6a268720de014f7fd3c8589c9a9e49ad1b3",
+      "size": 181565
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "_sys1.hdr",
+      "sha256": "0596b26c6bb7434a99121ea5a2f83427ef113ae55aa74bf9f5e7b073e86ac701",
+      "size": 3905
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "note": "CAB filename candidate; package not extracted",
+      "path": "_user1.cab",
+      "sha256": "45346426f2aa8e5d468f7779874ee7df3ceb4ce4ca15136754b59c59add9e6ce",
+      "size": 81009
+    },
+    {
+      "analysis": {
+        "architecture": "unknown",
+        "format": "unknown",
+        "imports": [],
+        "resources": [],
+        "valid": true,
+        "warnings": []
+      },
+      "path": "_user1.hdr",
+      "sha256": "acc638676509cc5513d87fba8ea7d912b9b35538924165a3b36e4b3c6ecc8a71",
+      "size": 4453
+    }
+  ],
+  "release": "UNKNOWN",
+  "root": "Bryce_4.iso / selected root installer components",
+  "schema_version": 1
+}
