@@ -44,6 +44,10 @@ parsing is unavailable: mount or extract media yourself. `doctor` is static by
 default; execution requires both `--run --consent`. Explicit application launch
 uses `launch --exe <path> --consent`; `--dry-run` inspects without execution.
 An observation timeout leaves the process running and does not mean a crash.
+Windows error 740 is saved in the report. An explicitly approved retry can use
+`--elevate` to request the standard UAC prompt. PID diagnostics include thread
+wait chains and external process names where Windows permits access; they never
+terminate another application.
 Original installers may make their own changes; this tool cannot undo those.
 
 Exit codes: 0 successful tool operation; 2 usage/consent error; 3 operation error;
@@ -60,3 +64,5 @@ or endorsed by MetaCreations or Bryce's rights holders. Supply your own properly
 licensed software. Never commit original ISOs, extracted commercial content,
 executables, scenes, serial numbers, or proprietary assets. Ignore rules protect
 common media extensions and designated media folders, not every possible asset.
+CI also runs `tools/check-source-only.ps1` against tracked paths. Both supplied
+download folders, extracted payloads, and local archive-reader builds are ignored.

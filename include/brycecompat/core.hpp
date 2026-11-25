@@ -15,7 +15,7 @@ Json analyze(const fs::path& path);
 Json scan(const fs::path& path);
 Json discover(const std::vector<fs::path>& configured);
 Json observe(unsigned long pid);
-Json launch(const fs::path& executable, unsigned timeout_ms);
+Json launch(const fs::path& executable, unsigned timeout_ms, bool elevate = false);
 Json host_info();
 Json profile(const fs::path& path);
 bool reparse(const fs::path& path);

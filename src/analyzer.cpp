@@ -33,6 +33,14 @@ Json inspect(std::span<const unsigned char> bytes) {
         {"resources",Json::array()},{"warnings",Json::array()},{"valid",true}};
     Reader r{bytes};
     try {
+        if(bytes.size()>=4) {
+            auto signature=r.u32(0);
+            if(signature==0x28635349)out["package_signature"]="InstallShield cabinet";
+            else if(signature==0x8c655d13)out["package_signature"]="InstallShield Z archive";
+            else if(signature==0xd879ab2a)out["package_signature"]="InstallShield installer archive";
+            else if(signature==0x4643534d)out["package_signature"]="Microsoft cabinet";
+            if(out.contains("package_signature"))out["warnings"].push_back("Signature identification only; archive structure and contents are not validated by this scanner");
+        }
         if(bytes.size()<2 || r.u16(0)!=0x5a4d) return out;
         out["format"]="MZ"; r.need(0,64);
         size_t pe=r.u32(0x3c);

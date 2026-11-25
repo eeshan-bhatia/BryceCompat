@@ -2,6 +2,8 @@
 #include <windows.h>
 #include <bcrypt.h>
 #include <tlhelp32.h>
+#include <wct.h>
+#include <shellapi.h>
 #include <fstream>
 #include <array>
 #include <set>
@@ -109,8 +111,55 @@ Json observe(unsigned long pid) {
     if(GetLastError()!=ERROR_NO_MORE_FILES)throw winerror("Process32NextW");
     std::set<DWORD> ids{pid};bool changed;
     do {changed=false;for(auto& e:entries)if(ids.count(e.th32ParentProcessID)&&!ids.count(e.th32ProcessID)){ids.insert(e.th32ProcessID);changed=true;}}while(changed);
+    Handle threads(CreateToolhelp32Snapshot(TH32CS_SNAPTHREAD,0));
+    std::vector<THREADENTRY32> thread_entries;
+    if(threads.h==INVALID_HANDLE_VALUE)result["errors"].push_back({{"thread_snapshot_error",GetLastError()}});
+    else {
+        THREADENTRY32 entry{};entry.dwSize=sizeof(entry);
+        if(Thread32First(threads.h,&entry)) {
+            do {if(ids.count(entry.th32OwnerProcessID))thread_entries.push_back(entry);}while(Thread32Next(threads.h,&entry));
+            if(GetLastError()!=ERROR_NO_MORE_FILES)result["errors"].push_back({{"thread_enumeration_error",GetLastError()}});
+        } else result["errors"].push_back({{"thread_enumeration_error",GetLastError()}});
+    }
+    struct WaitSession {HWCT h=OpenThreadWaitChainSession(0,nullptr);~WaitSession(){if(h)CloseThreadWaitChainSession(h);}} waits;
+    if(!waits.h)result["errors"].push_back({{"wait_chain_session_error",GetLastError()}});
     for(auto id:ids) {
-        Json process={{"pid",id},{"windows",Json::array()}};
+        Json process={{"pid",id},{"windows",Json::array()},{"threads",Json::array()}};
+        for(const auto& entry:thread_entries)if(entry.th32OwnerProcessID==id) {
+            Json t={{"tid",entry.th32ThreadID},{"wait_chain",Json::array()}};
+            if(waits.h) {
+                std::array<WAITCHAIN_NODE_INFO,WCT_MAX_NODE_COUNT> nodes{};DWORD count=WCT_MAX_NODE_COUNT;BOOL cycle=FALSE;
+                // Read-only inspection; do not enable debug privileges or change another process.
+                if(GetThreadWaitChain(waits.h,0,WCT_OUT_OF_PROC_FLAG,entry.th32ThreadID,&count,nodes.data(),&cycle)) {
+                    t["cycle_detected"]=cycle!=FALSE;
+                    for(DWORD i=0;i<(std::min)(count,DWORD(WCT_MAX_NODE_COUNT));++i) {
+                        const auto& n=nodes[i];Json node={{"object_type",int(n.ObjectType)},{"object_status",int(n.ObjectStatus)}};
+                        switch(n.ObjectStatus) {
+                            case WctStatusNoAccess: node["status"]="access_denied";break;
+                            case WctStatusRunning: node["status"]="running";break;
+                            case WctStatusBlocked: node["status"]="blocked";break;
+                            case WctStatusOwned: node["status"]="owned";break;
+                            case WctStatusNotOwned: node["status"]="not_owned";break;
+                            default: node["status"]="other";break;
+                        }
+                        if(n.ObjectType==WctThreadType) {
+                            node["type"]="thread";node["pid"]=n.ThreadObject.ProcessId;node["tid"]=n.ThreadObject.ThreadId;
+                            for(const auto& image:entries)if(image.th32ProcessID==n.ThreadObject.ProcessId){node["image_name"]=utf8(image.szExeFile);break;}
+                        }
+                        else if(n.ObjectType==WctSendMessageType)node["type"]="send_message";
+                        else if(n.ObjectType==WctMutexType)node["type"]="mutex";
+                        else if(n.ObjectType==WctCriticalSectionType)node["type"]="critical_section";
+                        else if(n.ObjectType==WctProcessWaitType)node["type"]="process_wait";
+                        // Omit object names: they can contain user-specific information.
+                        t["wait_chain"].push_back(node);
+                    }
+                } else {
+                    auto error=GetLastError();t["wait_chain_error"]=error;
+                    if(error==ERROR_ACCESS_DENIED)t["note"]="Cannot inspect this thread at current privileges; an administrator can rerun doctor --pid. No privilege is enabled automatically.";
+                }
+            }
+            process["threads"].push_back(t);
+        }
         for(auto& e:entries)if(e.th32ProcessID==id){process["parent_pid"]=e.th32ParentProcessID;process["image_name"]=utf8(e.szExeFile);}
         Handle h(OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION|SYNCHRONIZE,FALSE,id));
         if(h.h) {
@@ -136,24 +185,35 @@ Json observe(unsigned long pid) {
         if(!ok || context.failed)process["window_enumeration_error"]=context.failed?ERROR_NOT_ENOUGH_MEMORY:GetLastError();
         result["processes"].push_back(process);
     }
-    result["limitations"]="Snapshot descendants only; exited/reparented children may be absent. A responsive window does not prove application functionality.";
+    result["limitations"]="Snapshot descendants only; exited/reparented children may be absent. Wait chains are transient and not all waits are supported. A responsive window does not prove application functionality.";
     return result;
 }
-Json launch(const fs::path& executable,unsigned timeout_ms) {
+Json launch(const fs::path& executable,unsigned timeout_ms,bool elevate) {
     auto path=fs::absolute(executable);auto binary=analyze(path);auto a=binary["analysis"];
     if(!a.value("valid",false) || (a.value("architecture","")!="x86" && a.value("architecture","")!="x64") ||
        (a.value("format","")!="PE32" && a.value("format","")!="PE32+") || a.value("is_dll",false))throw std::runtime_error("Only valid x86/x64 PE applications may be launched");
-    std::wstring command=L"\""+path.wstring()+L"\"";
-    STARTUPINFOW startup{};startup.cb=sizeof(startup);PROCESS_INFORMATION info{};
-    if(!CreateProcessW(path.c_str(),command.data(),nullptr,nullptr,FALSE,0,nullptr,path.parent_path().c_str(),&startup,&info))throw winerror("CreateProcessW");
-    Handle process(info.hProcess),thread(info.hThread);
+    Json result={{"schema_version",1},{"executable",binary},{"host",host_info()},{"process_created",false},
+        {"elevation_requested",elevate},{"working_directory",path_text(path.parent_path())},{"compatibility","NOT TESTED"}};
+    Handle process,thread;DWORD pid=0;DWORD error=0;
+    if(elevate) {
+        auto directory=path.parent_path().wstring();SHELLEXECUTEINFOW info{};info.cbSize=sizeof(info);
+        info.fMask=SEE_MASK_NOCLOSEPROCESS|SEE_MASK_NOASYNC|SEE_MASK_FLAG_NO_UI;info.lpVerb=L"runas";
+        info.lpFile=path.c_str();info.lpDirectory=directory.c_str();info.nShow=SW_SHOWNORMAL;
+        if(!ShellExecuteExW(&info))error=GetLastError();else {process.h=info.hProcess;if(process.h)pid=GetProcessId(process.h);else error=ERROR_INVALID_HANDLE;}
+    } else {
+        std::wstring command=L"\""+path.wstring()+L"\"";
+        STARTUPINFOW startup{};startup.cb=sizeof(startup);PROCESS_INFORMATION info{};
+        if(!CreateProcessW(path.c_str(),command.data(),nullptr,nullptr,FALSE,0,nullptr,path.parent_path().c_str(),&startup,&info))error=GetLastError();
+        else {process.h=info.hProcess;thread.h=info.hThread;pid=info.dwProcessId;}
+    }
+    if(error) {result["launch_error"]=error;result["elevation_required"]=error==ERROR_ELEVATION_REQUIRED;result["cancelled"]=error==ERROR_CANCELLED;return result;}
+    if(!pid) {result["launch_error"]=GetLastError();return result;}
     auto wait=WaitForSingleObject(process.h,timeout_ms);
-    Json result={{"schema_version",1},{"executable",binary},{"host",host_info()},{"pid",info.dwProcessId},
-        {"process_created",true},{"observation_ms",timeout_ms},{"working_directory",path_text(path.parent_path())},
-        {"observation_elapsed_while_running",wait==WAIT_TIMEOUT},{"compatibility","NOT TESTED"}};
+    result["pid"]=pid;result["process_created"]=true;result["observation_ms"]=timeout_ms;
+    result["observation_elapsed_while_running"]=wait==WAIT_TIMEOUT;
     if(wait==WAIT_FAILED)result["wait_error"]=GetLastError();
     DWORD code=0;if(GetExitCodeProcess(process.h,&code))result["exit_code"]=wait==WAIT_OBJECT_0?Json(code):Json(nullptr);else result["exit_code_error"]=GetLastError();
-    result["snapshot"]=observe(info.dwProcessId);
+    result["snapshot"]=observe(pid);
     result["note"]="Processes are never terminated when observation ends; elapsed observation is not a crash or proof of GUI initialization.";
     return result;
 }

@@ -1,4 +1,4 @@
-# Progress — 24 November 2026
+# Progress — 25 November 2026
 
 ## Implemented
 
@@ -13,6 +13,10 @@
   No automatic process termination or arbitrary compatibility flags.
 - Separate unverified release profiles, synthetic tests, Windows CI definition,
   portable ZIP packaging, MIT license and documentation.
+- Thread wait-chain diagnostics identify cross-process window-message waits,
+  record access failures, and never enable debug privileges or terminate apps.
+- Structured launch errors and explicit `--elevate` using the standard UAC prompt.
+- InstallShield/MS CAB signature hints and a source-only Git/CI guard.
 
 ## Verified
 
@@ -21,8 +25,9 @@
   in the initial compiler probe. Static MSVC runtime selected for distribution.
 - Host reports Windows 11 25H2, build 26200. Portable package generated at
   `dist/BryceCompat-0.1.0-win64.zip`; main binary imports only Windows DLLs
-  (bcrypt, ADVAPI32, USER32, KERNEL32), with no dynamic MSVC runtime dependency.
-- CTest: 3/3 passing. Core executable: 2,547 checks including deterministic
+  (including bcrypt, ADVAPI32, USER32, KERNEL32 and now SHELL32).
+- Current CTest: 4/4 passing, including the source-only guard. Extended core run:
+  2,562 checks (thread-count-dependent) including deterministic
   malformed inputs, SHA-256 known answer, Unicode paths, version/resource/import
   parsing, profile rejection, report overwrite refusal, and process inspection.
 - CLI integration: explicit consent gate, read-only doctor, dry-run, synthetic
@@ -30,16 +35,31 @@
 - User-supplied Bryce 4 ISO inventoried; selected setup components hashed and
   analyzed. Setup.exe is PE32/x86 InstallShield launcher 5.50.137.0, not 16-bit.
   See docs/investigation.md for precise hashes, evidence and limitations.
-- No original installer or Bryce application has been executed.
+- Both supplied ISOs mounted read-only. Complete Windows-visible inventories:
+  Bryce 3D 1,212 files, Bryce 4 351 files, zero traversal/read errors.
+- Bryce 4 root setup executed with user authorization. Native launch required
+  elevation (740); elevated setup reproduced the no-window symptom. Repeated
+  WCT snapshots show a SendMessage wait on NIHardwareAccessibilityHelper.exe.
+  No unrelated process was terminated. No successful install is claimed.
+- Deark decoded Bryce 3D's 93-file data.1 and both internal engine archives.
+  Unshield tested all 146 Bryce 4 data1.cab entries and extracted selected files.
+  Both original applications are PE32/x86: Bryce 3D 3.0.0.0, Bryce 4 4.0.0.13.
+  Application hashes and selected dependency metadata are recorded in profiles
+  and docs. Neither original application executable has been run yet.
+- Explicit CLI `--elevate` verified using our synthetic fixture (exit 37);
+  structured error 740 reporting verified against original setup without
+  launching a second copy. Invalid-image failures also tested synthetically.
 - GitHub Actions workflow authored but no hosted run claimed.
 
 ## Unresolved and limitations
 
 - Milestone 1 diagnostic foundation implemented; broader production hardening
-  remains. Milestone 2 partial: Bryce 4 application payload not yet decoded,
-  Bryce 3D media not yet found. Milestones 3–8 are not complete.
-- Bryce 4 no-window symptom not reproduced; cause UNKNOWN. 7-Zip cannot decode
-  supplied data1.cab; investigate an InstallShield-aware package reader.
+  remains. Milestone 2 substantially investigated, but installation metadata and
+  optional-disc completeness remain unresolved. Milestones 3–8 are not complete.
+- Bryce 4's observed external wait is identified, but successful continuation
+  after the user closes the Native Instruments helper is not yet tested.
+- Bryce 3D root setup is NE/16-bit. Its internal INSTALL.EXE is x86, but other
+  engine components are NE; an all-native installation route is unverified.
 - No verified installation, replacement installer, registry changes, rollback,
   compatibility fixes, GUI launcher, scene/render/save/load test, or native Bryce
   functionality pass. Do not equate infrastructure tests with Bryce compatibility.
@@ -51,11 +71,12 @@
 
 ## Next actions
 
-1. Inspect Bryce 3D ISO when supplied, independently from Bryce 4.
-2. Inspect InstallShield payload using a validated compatible reader; determine
-   executable, assets, required dependencies and installation metadata.
-3. With explicit user authorization, mount Bryce 4 media and run root Setup.exe
-   with process/window diagnostics. The extracted subset is for analysis only.
-4. Reproduce the symptom, then test one narrowly scoped reversible change.
+1. User saves audio work and closes the implicated Native Instruments helper;
+   observe whether the already-authorized Bryce 4 setup advances. Do not kill
+   unrelated software. Both mounted images and this installer are left available.
+2. Establish original installation layout/registration from the installer and
+   its metadata; do not treat extraction as installation.
+3. Investigate Bryce 3D's original 32-bit engine and its dependencies separately.
+4. Test one narrowly scoped reversible adaptation only for a confirmed failure.
 5. Verify installation and original scene/render/save/load behavior before any
    compatibility claim; only then implement necessary adaptations and GUI flows.

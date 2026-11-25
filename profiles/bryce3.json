@@ -1,1 +1,11 @@
-{"schema_version":1,"version":"bryce3","name":"MetaCreations Bryce 3D","test_status":"NOT TESTED","executable_hashes":[],"verified_fixes":[],"installation_strategy":"UNKNOWN"}
+{
+  "schema_version": 1,
+  "version": "bryce3",
+  "name": "MetaCreations Bryce 3D",
+  "test_status": "NOT TESTED",
+  "executable_hashes": ["7cceb0d75130a70a9783e43aab089bdb27bf9e060f9ea7f0a2ba02b7e399ebe7"],
+  "observed_application": {"file_version":"3.0.0.0","architecture":"x86","evidence":"static extraction only"},
+  "observed_installer": {"sha256":"64d55b0367abf8456498cfcad956f642972b720b116f829c54f3251513c1ef2f","format":"NE","architecture":"16-bit segmented"},
+  "verified_fixes": [],
+  "installation_strategy": "UNKNOWN"
+}

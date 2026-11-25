@@ -9,6 +9,11 @@ to test launch, elapsed observation, and exit status without legacy software.
 
 GitHub Actions builds on Windows, runs CTest, and packages a portable ZIP.
 The workflow being present does not mean a hosted CI run has passed.
+The source-only guard checks tracked paths for original media and binary artifacts.
+Additional checks cover package signatures, thread inventory, consent for
+elevation, and structured CreateProcess failures using a synthetic invalid image.
+On 25 November, an explicitly elevated synthetic fixture also exited with the
+expected code 37. That interactive UAC-path test is separate from unattended CI.
 
 ## Local-only Bryce regression procedure
 

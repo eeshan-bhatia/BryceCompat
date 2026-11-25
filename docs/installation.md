@@ -16,6 +16,21 @@ file inventory. Administrator rights are not requested by the scanner.
    original installer; BryceCompat does not intercept or roll back its actions.
 6. Alternatively use `doctor --pid <existing-pid> --json` without launching it.
 
+If the report contains `launch_error: 740`, Windows requires elevation. Retry an
+approved launch with `--elevate`; this requests the normal UAC prompt. It never
+disables UAC or automatically elevates a failed launch. For an elevated target,
+an administrator may need to run `doctor --pid` to read its thread wait chains.
+When a chain shows `send_message` followed by another process, save that evidence.
+Have the user save work and close the implicated app normally before retesting;
+do not kill unrelated processes or assume every machine has the same blocker.
+
+In the 25 November run, Bryce 4 setup waited on a hidden window owned by Native
+Instruments' `NIHardwareAccessibilityHelper.exe`. The wait was reproduced in
+multiple snapshots. Successful installation after closing that app remains
+unverified. Bryce 3D's root setup is a distinct 16-bit NE bootstrapper; its
+extracted application and one internal setup engine are x86 PE32. This does not
+yet establish a complete 32-bit installation route.
+
 No arbitrary compatibility mode, registry entry, runtime dependency, or package
 extraction is applied. Investigate native behavior first. Do not infer that a
 running process with no visible window is 16-bit or crashed. Preserve reports

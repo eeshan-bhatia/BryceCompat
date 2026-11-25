@@ -1,0 +1,613 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-25",
+  "host": {
+    "build": "26200",
+    "platform": "Windows 11",
+    "display_version": "25H2"
+  },
+  "media": [
+    {
+      "read_errors": 0,
+      "version": "bryce3",
+      "files": 1212
+    },
+    {
+      "read_errors": 0,
+      "version": "bryce4",
+      "files": 351
+    }
+  ],
+  "binaries": [
+    {
+      "version": "bryce3",
+      "source": "media",
+      "relative_path": "SETUP.EXE",
+      "size": 45568,
+      "sha256": "64d55b0367abf8456498cfcad956f642972b720b116f829c54f3251513c1ef2f",
+      "format": "NE",
+      "architecture": "16-bit segmented",
+      "file_versions": [],
+      "imported_dlls": []
+    },
+    {
+      "version": "bryce3",
+      "source": "media",
+      "relative_path": "_ISDEL.EXE",
+      "size": 8192,
+      "sha256": "b526045cdf964674851fe70b54c1b486a78647be1aecb66bccc61d0a56eba183",
+      "format": "NE",
+      "architecture": "16-bit segmented",
+      "file_versions": [],
+      "imported_dlls": []
+    },
+    {
+      "version": "bryce3",
+      "source": "media",
+      "relative_path": "_SETUP.DLL",
+      "size": 6128,
+      "sha256": "edb2f8953c41f5ebdbc89f33c3ef356564d901cf6dab36a11487af00f4893334",
+      "format": "NE",
+      "architecture": "16-bit segmented",
+      "file_versions": [],
+      "imported_dlls": []
+    },
+    {
+      "version": "bryce3",
+      "source": "engine",
+      "relative_path": "output.000.INSTALL.EXE",
+      "size": 677888,
+      "sha256": "f3200f13ad59ce701f8b9d851d74a87fd538b8e9c68c9bba7cbb327817973dc0",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "3.0.118.0"
+      ],
+      "imported_dlls": [
+        "USER32.dll",
+        "GDI32.dll",
+        "KERNEL32.dll",
+        "VERSION.dll",
+        "WINSPOOL.DRV",
+        "comdlg32.dll",
+        "ADVAPI32.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "engine",
+      "relative_path": "output.001.LZWSERV.EXE",
+      "size": 20656,
+      "sha256": "4ba67538adb2ef218eb33b0e9fba4ec3f8d7d51d75cc3ccfd78769fdb7701ce1",
+      "format": "NE",
+      "architecture": "16-bit segmented",
+      "file_versions": [],
+      "imported_dlls": []
+    },
+    {
+      "version": "bryce3",
+      "source": "engine",
+      "relative_path": "output.002.WUTL95i.DLL",
+      "size": 36864,
+      "sha256": "24358c5e1a6ab94265fe169f9435bf1ee99b086ba283c33caeb985f1e1f6f082",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "1.13.0.0"
+      ],
+      "imported_dlls": [
+        "USER32.dll",
+        "KERNEL32.dll",
+        "ole32.dll",
+        "SHELL32.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "engine",
+      "relative_path": "output.003.BOOT16.EXE",
+      "size": 7168,
+      "sha256": "539ff016f201957eddfdfe2f17ee78a420a2a10558a26d97266a85d77abd0839",
+      "format": "NE",
+      "architecture": "16-bit segmented",
+      "file_versions": [],
+      "imported_dlls": []
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.000.prog_amberd3d.dll",
+      "size": 82432,
+      "sha256": "625133da41b0cbe61f1ee4ba8729b69b3bb89c39a965b1267b6117436fdc0f17",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "DDRAW.dll",
+        "amberkrn.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.001.prog_amberkrn.dll",
+      "size": 174592,
+      "sha256": "2fce1b64e02372a741717f6552a816f2dd698dd13dfdd5c435252ec1ba3a4db3",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "WINMM.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.002.prog_amberogl.dll",
+      "size": 67584,
+      "sha256": "ba034c237cf7c6bedad9a06d02d10016cd7db6ddbdaf953e596709db9afe766f",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "OPENGL32.dll",
+        "amberkrn.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.003.prog_ambers3d.dll",
+      "size": 186368,
+      "sha256": "3d8da848a3ae8ed10b010b9223f7214f032f65f710074f6ca6e47de95936b062",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "MSVFW32.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "WINMM.dll",
+        "amberkrn.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.004.prog_ambersgi.dll",
+      "size": 67584,
+      "sha256": "412b57b1571865da265c63d1a865c9d9e0e142d9e8eb10067174173c301e8e8a",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "OPENGL.dll",
+        "GDI32.dll",
+        "amberkrn.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.005.prog_Axiom.dll",
+      "size": 875520,
+      "sha256": "a7b5cef57f55a0abe64dc0fd4f58ed63d892ed242ab5c44a44a42d2b8c5d1d38",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "comdlg32.dll",
+        "WINMM.dll",
+        "MSVFW32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.006.prog_Bryce 3D.exe",
+      "size": 2357760,
+      "sha256": "7cceb0d75130a70a9783e43aab089bdb27bf9e060f9ea7f0a2ba02b7e399ebe7",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "3.0.0.0"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "comdlg32.dll",
+        "SHELL32.dll",
+        "WINMM.dll",
+        "AVIFIL32.dll",
+        "MSVFW32.dll",
+        "Axiom.dll",
+        "amberkrn.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.008.prog_msvcrt.dll",
+      "size": 271632,
+      "sha256": "e11e3ede579dddca1f8b7507d51f4ec13bcb419b1ab9b6e993fb7acfe5200553",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.0.0.7022"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.009.prog_MSVCRT40.DLL",
+      "size": 326656,
+      "sha256": "ab55a2de2b6faf3daacd3e69473d385ceaead8033f7c79beb6bbf802f230f030",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "4.10.0.6038"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.057.prog_Plugins_OBJImport.bro",
+      "size": 13824,
+      "sha256": "f44d03daef8b302ec7805753b9419e8fce3e96b2ff9e29be1238ac7466024b40",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.058.prog_Plugins_PS3Export.bri",
+      "size": 13312,
+      "sha256": "3f7a64493ddfe8dd3111dcf794b015bac7bfe9b9fd4428211ff0e7cf58a934f4",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVCRT.dll",
+        "Axiom.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.059.prog_Plugins_AVIExport.brm",
+      "size": 12800,
+      "sha256": "5eb06698f985ae57ed48e9910d78fa6eea8c6b4566a32b6a15851bd8607c9120",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "Axiom.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVFW32.dll",
+        "AVIFIL32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.060.prog_Plugins_3DMFImport.bro",
+      "size": 80896,
+      "sha256": "d08f1b3e5206e1c9d877bf98ec886d681e46fe26d7c33239fc9f9040c838f25d",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.061.prog_Plugins_3DSImport.bro",
+      "size": 10240,
+      "sha256": "c1bbdb538f4f96d133cd88c40debf7aa4c7d9268d2727229c3764d46cef76228",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.062.prog_Plugins_DXFImport.bro",
+      "size": 100864,
+      "sha256": "6c0cbea767cdda7498d47430d1f40f909d3818e7775e9635fe5302d207421f2e",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce3",
+      "source": "payload",
+      "relative_path": "output.063.prog_Plugins_BMPExport.bri",
+      "size": 6144,
+      "sha256": "c7abc73a5a81eac139b42aec706f7b2d0cafc7acfc8f97c3e4c3918cc866e911",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "Axiom.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "media",
+      "relative_path": "Setup.exe",
+      "size": 71680,
+      "sha256": "a6d2f8b9173fd43f03aabff0b8cc3fadbd0b15224bcbe5f562a32158a297b502",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.50.137.0"
+      ],
+      "imported_dlls": [
+        "VERSION.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "media",
+      "relative_path": "_ISDel.exe",
+      "size": 27648,
+      "sha256": "6809453e3937309e8ab4d4089dfaf1ae7c7d2ef195dd0b7646303fb6abeb87da",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.50.137.0"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "media",
+      "relative_path": "_Setup.dll",
+      "size": 34816,
+      "sha256": "1ad637e80a25f6f885604589056814d16ccad55699be14920e2b99f2d74c1019",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.50.134.0"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "engine",
+      "relative_path": "output.000.INSTALL.EXE",
+      "size": 561664,
+      "sha256": "c9d2bee521bc3d8037b164c9468b145646fc556a6969acf83f5556e4b295fc79",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.50.137.0"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "WINSPOOL.DRV",
+        "comdlg32.dll",
+        "ADVAPI32.dll",
+        "ole32.dll",
+        "VERSION.dll",
+        "WINMM.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "engine",
+      "relative_path": "output.001.zdata.dll",
+      "size": 53248,
+      "sha256": "1d9321dd5e1790dff91cbd475a023760f3b6b6b26e849b70b171b841070378f2",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.50.131.0"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "engine",
+      "relative_path": "output.002.WUTL95i.DLL",
+      "size": 46592,
+      "sha256": "67d309a88d68c449c2d0a76c0f2d2c9b2b764a469a6daea67df0279dd49c9296",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "5.50.132.0"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "SHELL32.dll",
+        "ole32.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "engine",
+      "relative_path": "output.003.BOOT16.EXE",
+      "size": 7168,
+      "sha256": "539ff016f201957eddfdfe2f17ee78a420a2a10558a26d97266a85d77abd0839",
+      "format": "NE",
+      "architecture": "16-bit segmented",
+      "file_versions": [],
+      "imported_dlls": []
+    },
+    {
+      "version": "bryce4",
+      "source": "payload",
+      "relative_path": "Program_Files\\AmberKrn.dll",
+      "size": 176128,
+      "sha256": "60f7bf27f5b08daf359df3f05a3a525b3d08686abf57e289ee314b45a814005b",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "WINMM.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "payload",
+      "relative_path": "Program_Files\\Axiom.dll",
+      "size": 974848,
+      "sha256": "90bae106bd90a7673a8d6f8722bb2c5350c8ade457e5c06df870259a9b2b701e",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "comdlg32.dll",
+        "WINMM.dll",
+        "MSVFW32.dll",
+        "IMM32.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "payload",
+      "relative_path": "Program_Files\\Bryce4.exe",
+      "size": 2793472,
+      "sha256": "2c736c50e7f95faa04afb074c96ed0d05f50b6dad648cb6e877850c4e555d0ea",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "4.0.0.13"
+      ],
+      "imported_dlls": [
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "comdlg32.dll",
+        "ADVAPI32.dll",
+        "SHELL32.dll",
+        "WINMM.dll",
+        "Axiom.dll",
+        "ImageIOB4.dll",
+        "MPR.dll",
+        "amberkrn.dll",
+        "MSVCRT.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "payload",
+      "relative_path": "Program_Files\\ImageIOB4.dll",
+      "size": 352256,
+      "sha256": "d7df344509b5696b513403393edd92b096835fdf29ba8ad09a5fef2f051dbf81",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [
+        "2.0.0.22"
+      ],
+      "imported_dlls": [
+        "Axiom.dll",
+        "Fpxlib.dll",
+        "MSVCRT.dll",
+        "KERNEL32.dll",
+        "USER32.dll",
+        "GDI32.dll",
+        "comdlg32.dll",
+        "ADVAPI32.dll",
+        "SHELL32.dll",
+        "ole32.dll"
+      ]
+    },
+    {
+      "version": "bryce4",
+      "source": "payload",
+      "relative_path": "Program_Files\\qtmlClient.dll",
+      "size": 229888,
+      "sha256": "766ebb301901c14a9a2c23c402bfd031260e9ffcd80af685fe0837ad8261bb7e",
+      "format": "PE32",
+      "architecture": "x86",
+      "file_versions": [],
+      "imported_dlls": [
+        "KERNEL32.dll"
+      ]
+    }
+  ],
+  "runtime": {
+    "bryce4": "Setup running without top-level windows; elevated WCT repeatedly shows SendMessage wait to NIHardwareAccessibilityHelper.exe",
+    "applications": "NOT TESTED",
+    "bryce3": "NOT TESTED",
+    "verified_fixes": []
+  }
+}

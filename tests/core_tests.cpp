@@ -20,6 +20,11 @@ int main() {
     fs::path temp=fs::temp_directory_path()/(L"BryceCompat tests "+std::to_wstring(GetCurrentProcessId())+L" \u03a9");
     try {
         require(inspect({})["format"]=="unknown","empty input");
+        for(auto sig:{0x28635349u,0x8c655d13u,0xd879ab2au,0x4643534du}) {
+            std::vector<unsigned char> package(4);put(package,0,sig);
+            require(inspect(package).contains("package_signature"),"package signature");
+            require(inspect(package)["format"]=="unknown","archive signature is not an executable");
+        }
         std::vector<unsigned char> mz(64);put(mz,0,0x5a4d,2);
         require(inspect(mz)["format"]=="MZ","MZ is not necessarily NE");
         put(mz,0x3c,0xfffffff0);require(!inspect(mz)["valid"].get<bool>(),"bad header offset");
@@ -67,6 +72,13 @@ int main() {
         {std::ofstream out(config);out<<R"({"schema_version":2,"version":"bryce4","verified_fixes":[]})";}
         bool rejected=false;try{profile(config);}catch(...){rejected=true;}require(rejected,"profile version rejection");
         auto snapshot=observe(GetCurrentProcessId());require(snapshot["processes"][0]["running"]==true,"current process observation");
+        require(!snapshot["processes"][0]["threads"].empty(),"thread inventory");
+        for(const auto& t:snapshot["processes"][0]["threads"])require(t.contains("cycle_detected")||t.contains("wait_chain_error")||!snapshot["errors"].empty(),"wait chain success or explicit error");
+        auto invalid_image=temp/"invalid-image.exe";b=pe();
+        {std::ofstream out(invalid_image,std::ios::binary);out.write(reinterpret_cast<const char*>(b.data()),static_cast<std::streamsize>(b.size()));}
+        auto failed_launch=launch(invalid_image,0);
+        require(failed_launch["process_created"]==false,"invalid image cannot execute");
+        require(failed_launch["launch_error"].get<unsigned>()!=0,"launch error preserved in structured report");
         fs::remove_all(temp);std::cout<<checks<<" checks passed\n";return 0;
     }catch(const std::exception& e){std::cerr<<e.what()<<" after "<<checks<<" checks\n";std::error_code ec;fs::remove_all(temp,ec);return 1;}
 }

@@ -7,9 +7,9 @@ namespace {
 const char* help=R"(BryceCompat 0.1 - native Windows investigation toolkit
   scan <file-or-directory> [--json] [--output <report.json>]
   detect [--media <path>] [--config <config.json>] [--json]
-  doctor --installer <exe> [--run --consent] [--timeout-ms <0..60000>]
+  doctor --installer <exe> [--run --consent] [--elevate] [--timeout-ms <0..60000>]
   doctor --pid <pid> [--json]
-  launch --exe <exe> --consent [--timeout-ms <0..60000>] [--dry-run]
+  launch --exe <exe> --consent [--elevate] [--timeout-ms <0..60000>] [--dry-run]
   report --profile <profile.json> [--json]
 All reports can be saved with --output. Scan and doctor never execute media
 unless --run --consent is supplied. Launch requires --consent. No compatibility
@@ -28,7 +28,7 @@ int wmain(int argc,wchar_t** argv) {
         std::wstring command=argv[1];std::map<std::wstring,std::wstring> options;std::set<std::wstring> flags;std::vector<fs::path> args;
         for(int i=2;i<argc;++i) {
             std::wstring a=argv[i];
-            if(a==L"--json"||a==L"--consent"||a==L"--run"||a==L"--dry-run") {if(!flags.insert(a).second)throw std::invalid_argument("Duplicate flag");}
+            if(a==L"--json"||a==L"--consent"||a==L"--run"||a==L"--dry-run"||a==L"--elevate") {if(!flags.insert(a).second)throw std::invalid_argument("Duplicate flag");}
             else if(a==L"--output"||a==L"--media"||a==L"--config"||a==L"--installer"||a==L"--pid"||a==L"--exe"||a==L"--profile"||a==L"--timeout-ms") {
                 if(++i==argc)throw std::invalid_argument("Missing option value");if(!options.emplace(a,argv[i]).second)throw std::invalid_argument("Duplicate option");
             } else if(a.starts_with(L"--"))throw std::invalid_argument("Unknown option");else args.emplace_back(a);
@@ -39,6 +39,7 @@ int wmain(int argc,wchar_t** argv) {
         else if(command==L"launch") {allowed.insert(L"--exe");allowed.insert(L"--timeout-ms");permitted.insert(L"--consent");permitted.insert(L"--dry-run");}
         else if(command==L"report")allowed.insert(L"--profile");
         else if(command!=L"scan")throw std::invalid_argument("Unknown or not yet supported command; use --help");
+        if(command==L"doctor"||command==L"launch")permitted.insert(L"--elevate");
         for(auto& [k,v]:options)if(!allowed.count(k))throw std::invalid_argument("Option does not apply to command");
         for(auto& f:flags)if(!permitted.count(f))throw std::invalid_argument("Flag does not apply to command");
         if(command!=L"scan"&&!args.empty())throw std::invalid_argument("Unexpected positional argument");
@@ -55,14 +56,15 @@ int wmain(int argc,wchar_t** argv) {
             report=discover(paths);
         } else if(command==L"report") {if(!options.count(L"--profile"))throw std::invalid_argument("report requires --profile");report=profile(options.at(L"--profile"));}
         else if(command==L"doctor"&&options.count(L"--pid")) {
-            if(options.count(L"--installer")||flags.count(L"--run")||flags.count(L"--consent")||flags.count(L"--dry-run")||options.count(L"--timeout-ms"))throw std::invalid_argument("PID observation cannot be combined with launch options");
+            if(options.count(L"--installer")||flags.count(L"--run")||flags.count(L"--consent")||flags.count(L"--dry-run")||flags.count(L"--elevate")||options.count(L"--timeout-ms"))throw std::invalid_argument("PID observation cannot be combined with launch options");
             auto pid=number(options.at(L"--pid"),0xffffffff);if(!pid)throw std::invalid_argument("PID must be positive");report=observe(pid);
         } else {
             auto key=command==L"launch"?L"--exe":L"--installer";
             if(!options.count(key))throw std::invalid_argument("Executable path is required");
             bool run=command==L"launch"||flags.count(L"--run");
+            if(flags.count(L"--elevate")&&!run)throw std::invalid_argument("--elevate requires an explicit launch operation");
             if(run&&!flags.count(L"--consent")&&!flags.count(L"--dry-run"))throw std::invalid_argument("Execution requires explicit --consent");
-            if(run&&!flags.count(L"--dry-run"))report=launch(options.at(key),timeout);
+            if(run&&!flags.count(L"--dry-run")) {report=launch(options.at(key),timeout,flags.count(L"--elevate")!=0);if(!report.value("process_created",false))code=3;}
             else report={{"schema_version",1},{"executable",analyze(options.at(key))},{"executed",false},{"compatibility","NOT TESTED"}};
         }
         auto serialized=report.dump(2,' ',false,Json::error_handler_t::replace)+"\n";
