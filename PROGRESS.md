@@ -41,6 +41,11 @@
   elevation (740); elevated setup reproduced the no-window symptom. Repeated
   WCT snapshots show a SendMessage wait on NIHardwareAccessibilityHelper.exe.
   No unrelated process was terminated. No successful install is claimed.
+- Retry with the Native Instruments helper absent reached the original Bryce 4
+  Product Registration dialog. The helper and previous setup were already absent
+  at preflight; the agent closed no apps. Original setup spawned its x86 internal
+  engine and displayed the installer UI without compatibility flags or patches.
+  The serial-entry page is left for the user; no serial is captured or committed.
 - Deark decoded Bryce 3D's 93-file data.1 and both internal engine archives.
   Unshield tested all 146 Bryce 4 data1.cab entries and extracted selected files.
   Both original applications are PE32/x86: Bryce 3D 3.0.0.0, Bryce 4 4.0.0.13.
@@ -56,8 +61,9 @@
 - Milestone 1 diagnostic foundation implemented; broader production hardening
   remains. Milestone 2 substantially investigated, but installation metadata and
   optional-disc completeness remain unresolved. Milestones 3–8 are not complete.
-- Bryce 4's observed external wait is identified, but successful continuation
-  after the user closes the Native Instruments helper is not yet tested.
+- Bryce 4 installer GUI now verified on retry with the helper absent. Full
+  installation is pending the user's licensed serial entry; this is not an
+  application functionality pass or proof that no further blockers exist.
 - Bryce 3D root setup is NE/16-bit. Its internal INSTALL.EXE is x86, but other
   engine components are NE; an all-native installation route is unverified.
 - No verified installation, replacement installer, registry changes, rollback,
@@ -71,9 +77,9 @@
 
 ## Next actions
 
-1. User saves audio work and closes the implicated Native Instruments helper;
-   observe whether the already-authorized Bryce 4 setup advances. Do not kill
-   unrelated software. Both mounted images and this installer are left available.
+1. User completes licensed serial entry directly in the Bryce 4 installer, then
+   continue installation and capture its final layout and result. Both mounted
+   images and this installer are left available. Respect app-closure exclusions.
 2. Establish original installation layout/registration from the installer and
    its metadata; do not treat extraction as installation.
 3. Investigate Bryce 3D's original 32-bit engine and its dependencies separately.

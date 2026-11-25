@@ -41,6 +41,15 @@ UNKNOWN means insufficient evidence; NOT TESTED means the experiment was not run
   the observed wait, not proof of a universal Bryce bug or a complete workaround.
   Accessing the elevated setup's wait chain required elevated diagnostics.
   The helper was not terminated or changed. Installation remains incomplete.
+- CONFIRMED retry: with the helper and previous setup already absent at preflight,
+  original Setup.exe launched through the CLI's explicit `--elevate` path, spawned
+  its x86 `_INS5576._MP` engine, and displayed the Product Registration dialog.
+  No applications were closed by the agent, and no compatibility flag or binary
+  modification was used. This narrows the earlier observed wait but does not
+  establish a universal cause or prove complete installation. Licensed serial
+  entry is pending user input; no serial is included in evidence.
+  Local evidence: `reports/bryce4-retry-helper-absent.json` plus direct inspection
+  of the original installer window (no screenshot or registration values published).
 - CONFIRMED: readme discusses a separate Content CD; this image also includes
   model/texture libraries, sample scenes, documentation, QuickTime30.exe,
   Acrobat Reader and optional-looking exporters. Presence alone does not prove
@@ -61,10 +70,10 @@ UNKNOWN means insufficient evidence; NOT TESTED means the experiment was not run
 - Local evidence: `reports/bryce4-media-inventory.json`,
   `reports/bryce4-payload-inventory.json`, `reports/bryce4-data1-test.txt`,
   `reports/bryce4-wait-chain-elevated.json`, and follow-up snapshots.
-- Next runtime experiment: user saves audio work and closes the implicated
-  Native Instruments helper, then observe whether setup advances or encounters
-  another blocker. Do not terminate unrelated apps, patch setup, or apply
-  arbitrary compatibility modes to bypass this wait.
+- Next runtime experiment: continue after the user completes licensed serial
+  entry, verify installation, then launch and test the original application.
+  Close only explicitly authorized nonessential apps if a new wait is observed;
+  do not patch setup or apply arbitrary compatibility modes.
 
 ## Bryce 3D
 

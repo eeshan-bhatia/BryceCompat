@@ -26,8 +26,11 @@ do not kill unrelated processes or assume every machine has the same blocker.
 
 In the 25 November run, Bryce 4 setup waited on a hidden window owned by Native
 Instruments' `NIHardwareAccessibilityHelper.exe`. The wait was reproduced in
-multiple snapshots. Successful installation after closing that app remains
-unverified. Bryce 3D's root setup is a distinct 16-bit NE bootstrapper; its
+multiple snapshots. A later retry with that helper absent opened the original
+Product Registration dialog without compatibility flags or patches. Full
+installation remains pending licensed serial entry and subsequent verification.
+Enter serials directly into the original installer; never export them in reports.
+Bryce 3D's root setup is a distinct 16-bit NE bootstrapper; its
 extracted application and one internal setup engine are x86 PE32. This does not
 yet establish a complete 32-bit installation route.
 

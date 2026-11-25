@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "date": "2026-11-25",
+  "host": {"platform":"Windows 11", "display_version":"25H2", "build":"26200"},
+  "installer_sha256": "a6d2f8b9173fd43f03aabff0b8cc3fadbd0b15224bcbe5f562a32158a297b502",
+  "launch": "original mounted-media Setup.exe via explicit UAC elevation",
+  "preflight": "Prior setup and NIHardwareAccessibilityHelper processes absent",
+  "applications_closed_by_agent": [],
+  "compatibility_flags": [],
+  "binary_modifications": [],
+  "observed_child_image": "_INS5576._MP",
+  "installer_gui": "PASS: original Product Registration dialog observed",
+  "installation_complete": false,
+  "application_functionality": "NOT TESTED",
+  "pending": "User supplies licensed serial directly in installer; no serial collected in this record"
+}

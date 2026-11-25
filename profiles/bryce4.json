@@ -7,5 +7,6 @@
   "observed_application": {"file_version":"4.0.0.13","architecture":"x86","evidence":"static extraction only"},
   "observed_installer": {"sha256":"a6d2f8b9173fd43f03aabff0b8cc3fadbd0b15224bcbe5f562a32158a297b502","format":"PE32","architecture":"x86","file_version":"5.50.137.0"},
   "verified_fixes": [],
-  "installation_strategy": "native installer investigation; external window-message wait observed"
+  "installer_gui_status": "PASS: Product Registration reached on retry with the observed external blocker absent",
+  "installation_strategy": "native elevated installer; licensed serial entry and full installation verification pending"
 }

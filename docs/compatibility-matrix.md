@@ -7,7 +7,7 @@ No compatibility fix is verified. Static media evidence is in investigation.md.
 |---|---|---|
 | Media inventory | PASS (Windows view) | PASS (Windows view) |
 | Application payload identity | PASS (static x86 identification) | PASS (static x86 identification) |
-| Original installer GUI | NOT TESTED (NE bootstrapper) | FAIL (windowless SendMessage wait observed) |
+| Original installer GUI | NOT TESTED (NE bootstrapper) | PASS on retry (Product Registration reached); prior message wait recorded |
 | Install, shortcuts, restart | NOT TESTED | NOT TESTED |
 | GUI initialization and normal exit | NOT TESTED | NOT TESTED |
 | Scene and object editing | NOT TESTED | NOT TESTED |
@@ -21,5 +21,6 @@ Application and setup hashes are recorded in profiles and the investigation
 report. Profiles contain no verified fixes. Runtime observation was on Windows
 11 25H2/build 26200, native configuration with UAC elevation only; the external
 Native Instruments message wait is machine-specific evidence. It has not been
-shown to be the only blocker. No rollback tests are applicable because toolkit mutations
+shown to be the only blocker. Full installation verification remains pending
+licensed serial entry. No rollback tests are applicable because toolkit mutations
 and replacement installation are not implemented.
