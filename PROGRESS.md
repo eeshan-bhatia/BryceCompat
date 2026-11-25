@@ -1,4 +1,4 @@
-# Progress — 25 November 2026
+# Progress — 26 November 2026
 
 ## Implemented
 
@@ -17,6 +17,9 @@
   record access failures, and never enable debug privileges or terminate apps.
 - Structured launch errors and explicit `--elevate` using the standard UAC prompt.
 - InstallShield/MS CAB signature hints and a source-only Git/CI guard.
+- Read-only display diagnostics: physical window/client bounds, monitor bounds,
+  scale, DPI awareness, resize styles and monitor coverage. Observer DPI context
+  is restored after inspection; no target window or display settings are changed.
 
 ## Verified
 
@@ -40,17 +43,23 @@
 - Bryce 4 root setup executed with user authorization. Native launch required
   elevation (740); elevated setup reproduced the no-window symptom. Repeated
   WCT snapshots show a SendMessage wait on NIHardwareAccessibilityHelper.exe.
-  No unrelated process was terminated. No successful install is claimed.
+  No unrelated process was terminated. That initial attempt did not install.
 - Retry with the Native Instruments helper absent reached the original Bryce 4
   Product Registration dialog. The helper and previous setup were already absent
   at preflight; the agent closed no apps. Original setup spawned its x86 internal
   engine and displayed the installer UI without compatibility flags or patches.
-  The serial-entry page is left for the user; no serial is captured or committed.
+  The user subsequently completed installation manually. No serial is stored
+  in project files or committed.
 - Deark decoded Bryce 3D's 93-file data.1 and both internal engine archives.
   Unshield tested all 146 Bryce 4 data1.cab entries and extracted selected files.
   Both original applications are PE32/x86: Bryce 3D 3.0.0.0, Bryce 4 4.0.0.13.
   Application hashes and selected dependency metadata are recorded in profiles
-  and docs. Neither original application executable has been run yet.
+  and docs. Bryce 4's installed original executable has now been launched without
+  elevation and has responsive windows. Bryce 3D has not been run.
+- Bryce 4 display baseline: two visible nonempty windows cover the primary
+  1920x1080 monitor, with matching client bounds, DPI-unaware status, 96 window
+  DPI and 100% monitor scaling. This is window geometry, not visual verification.
+  Desktop automation cannot enumerate Bryce even after the user foregrounds it.
 - Explicit CLI `--elevate` verified using our synthetic fixture (exit 37);
   structured error 740 reporting verified against original setup without
   launching a second copy. Invalid-image failures also tested synthetically.
@@ -61,12 +70,11 @@
 - Milestone 1 diagnostic foundation implemented; broader production hardening
   remains. Milestone 2 substantially investigated, but installation metadata and
   optional-disc completeness remain unresolved. Milestones 3–8 are not complete.
-- Bryce 4 installer GUI now verified on retry with the helper absent. Full
-  installation is pending the user's licensed serial entry; this is not an
-  application functionality pass or proof that no further blockers exist.
+- Bryce 4 installation is user-reported complete and installed app startup is
+  observed. Visual layout, asset completeness and functionality remain unverified.
 - Bryce 3D root setup is NE/16-bit. Its internal INSTALL.EXE is x86, but other
   engine components are NE; an all-native installation route is unverified.
-- No verified installation, replacement installer, registry changes, rollback,
+- No fully verified installation, replacement installer, registry changes, rollback,
   compatibility fixes, GUI launcher, scene/render/save/load test, or native Bryce
   functionality pass. Do not equate infrastructure tests with Bryce compatibility.
 - ISO/HFS parsing is external/manual; duplicate asset paths need care. No NE
@@ -77,9 +85,8 @@
 
 ## Next actions
 
-1. User completes licensed serial entry directly in the Bryce 4 installer, then
-   continue installation and capture its final layout and result. Both mounted
-   images and this installer are left available. Respect app-closure exclusions.
+1. Obtain a user screenshot of Bryce's layout to distinguish unused workspace
+   from scaling or rendering problems. No fullscreen adaptation is verified yet.
 2. Establish original installation layout/registration from the installer and
    its metadata; do not treat extraction as installation.
 3. Investigate Bryce 3D's original 32-bit engine and its dependencies separately.

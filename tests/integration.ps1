@@ -26,6 +26,12 @@ Assert ($run.observation_elapsed_while_running -and $null -eq $run.exit_code) 'T
 Assert ($run.snapshot.processes[0].windows.Count -ge 1) 'Hidden fixture window not found'
 Assert (-not $run.snapshot.processes[0].windows[0].visible) 'Hidden window visibility incorrect'
 Assert ($run.snapshot.processes[0].windows[0].responsive_probe) 'Responsive fixture reported unresponsive'
+$window = $run.snapshot.processes[0].windows[0]
+Assert ($window.client_rectangle[2] -gt 0 -and $window.client_rectangle[3] -gt 0) 'Client dimensions missing'
+Assert ($window.window_dpi -gt 0 -and $window.dpi_awareness -ne 'unknown') 'Window DPI diagnostics missing'
+Assert ($window.maximize_box -and $window.resizable_border) 'Fixture resize styles misreported'
+Assert (-not $window.minimized -and -not $window.maximized) 'Fixture window state misreported'
+Assert ($run.snapshot.window_coordinate_space -eq 'physical screen pixels') 'Observer coordinate context not set'
 Assert ($run.snapshot.processes[0].threads.Count -ge 1) 'Thread inventory missing'
 $exited = & $Cli launch --exe $Fixture --consent --timeout-ms 5000 --json | ConvertFrom-Json
 Assert ($LASTEXITCODE -eq 0 -and $exited.exit_code -eq 37) 'Exit code missing'

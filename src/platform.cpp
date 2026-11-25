@@ -4,6 +4,7 @@
 #include <tlhelp32.h>
 #include <wct.h>
 #include <shellapi.h>
+#include <shellscalingapi.h>
 #include <fstream>
 #include <array>
 #include <set>
@@ -103,6 +104,13 @@ Json discover(const std::vector<fs::path>& configured) {
 }
 Json observe(unsigned long pid) {
     Json result={{"pid",pid},{"processes",Json::array()},{"errors",Json::array()},{"functional_compatibility","NOT TESTED"}};
+    // Change only our observer thread's coordinate context, never the target app.
+    struct DpiScope {
+        DPI_AWARENESS_CONTEXT previous=SetThreadDpiAwarenessContext(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
+        ~DpiScope(){if(previous)SetThreadDpiAwarenessContext(previous);}
+    } dpi_scope;
+    result["window_coordinate_space"]=dpi_scope.previous?"physical screen pixels":"observer default (may be DPI virtualized)";
+    if(!dpi_scope.previous)result["errors"].push_back({{"observer_dpi_context_error",GetLastError()}});
     Handle snapshot(CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS,0));
     if(snapshot.h==INVALID_HANDLE_VALUE)throw winerror("CreateToolhelp32Snapshot");
     PROCESSENTRY32W pe{};pe.dwSize=sizeof(pe);std::vector<PROCESSENTRY32W> entries;
@@ -173,11 +181,33 @@ Json observe(unsigned long pid) {
         auto ok=EnumWindows([](HWND window,LPARAM param)->BOOL {
             auto& c=*reinterpret_cast<Context*>(param);DWORD owner=0;GetWindowThreadProcessId(window,&owner);if(owner!=c.id)return TRUE;
             try {
-                RECT rect{};bool has_rect=GetWindowRect(window,&rect)!=0;
+                RECT rect{};bool has_rect=GetWindowRect(window,&rect)!=0;auto rect_error=has_rect?ERROR_SUCCESS:GetLastError();
                 DWORD_PTR response=0;SetLastError(ERROR_SUCCESS);
                 bool responsive=SendMessageTimeoutW(window,WM_NULL,0,0,SMTO_ABORTIFHUNG|SMTO_BLOCK,100,&response)!=0;
-                Json w={{"visible",IsWindowVisible(window)!=FALSE},{"responsive_probe",responsive},{"probe_error",responsive?0:GetLastError()}};
+                auto probe_error=responsive?ERROR_SUCCESS:GetLastError();
+                Json w={{"visible",IsWindowVisible(window)!=FALSE},{"responsive_probe",responsive},{"probe_error",probe_error}};
                 if(has_rect)w["rectangle"]={rect.left,rect.top,rect.right,rect.bottom};
+                else w["rectangle_error"]=rect_error;
+                w["minimized"]=IsIconic(window)!=FALSE;w["maximized"]=IsZoomed(window)!=FALSE;
+                RECT client{};
+                if(GetClientRect(window,&client))w["client_rectangle"]={client.left,client.top,client.right,client.bottom};
+                else w["client_rectangle_error"]=GetLastError();
+                auto dpi=GetDpiForWindow(window);if(dpi)w["window_dpi"]=dpi;else w["window_dpi_error"]=GetLastError();
+                auto awareness=GetAwarenessFromDpiAwarenessContext(GetWindowDpiAwarenessContext(window));
+                w["dpi_awareness"]=awareness==DPI_AWARENESS_UNAWARE?"unaware":awareness==DPI_AWARENESS_SYSTEM_AWARE?"system":awareness==DPI_AWARENESS_PER_MONITOR_AWARE?"per_monitor":"unknown";
+                SetLastError(ERROR_SUCCESS);auto style=GetWindowLongPtrW(window,GWL_STYLE);auto style_error=GetLastError();
+                if(style||!style_error) {w["resizable_border"]=(style&WS_THICKFRAME)!=0;w["maximize_box"]=(style&WS_MAXIMIZEBOX)!=0;}
+                else w["style_error"]=style_error;
+                auto monitor=MonitorFromWindow(window,MONITOR_DEFAULTTONEAREST);
+                MONITORINFO mi{};mi.cbSize=sizeof(mi);
+                if(monitor&&GetMonitorInfoW(monitor,&mi)) {
+                    w["monitor_rectangle"]={mi.rcMonitor.left,mi.rcMonitor.top,mi.rcMonitor.right,mi.rcMonitor.bottom};
+                    w["monitor_work_area"]={mi.rcWork.left,mi.rcWork.top,mi.rcWork.right,mi.rcWork.bottom};
+                    w["monitor_primary"]=(mi.dwFlags&MONITORINFOF_PRIMARY)!=0;
+                    DEVICE_SCALE_FACTOR factor{};auto status=GetScaleFactorForMonitor(monitor,&factor);
+                    if(SUCCEEDED(status))w["monitor_scale_percent"]=int(factor);else w["monitor_scale_error"]=status;
+                    if(has_rect)w["covers_monitor_bounds"]=rect.left<=mi.rcMonitor.left&&rect.top<=mi.rcMonitor.top&&rect.right>=mi.rcMonitor.right&&rect.bottom>=mi.rcMonitor.bottom;
+                } else w["monitor_info_error"]=GetLastError();
                 // Titles deliberately omitted: installer windows can contain serial numbers.
                 c.windows->push_back(w);return TRUE;
             } catch(...) {c.failed=true;return FALSE;}

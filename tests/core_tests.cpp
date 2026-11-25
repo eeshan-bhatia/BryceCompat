@@ -71,7 +71,10 @@ int main() {
         require(fs::file_size(saved)==2,"existing report preserved");
         {std::ofstream out(config);out<<R"({"schema_version":2,"version":"bryce4","verified_fixes":[]})";}
         bool rejected=false;try{profile(config);}catch(...){rejected=true;}require(rejected,"profile version rejection");
+        auto prior_dpi=GetThreadDpiAwarenessContext();
         auto snapshot=observe(GetCurrentProcessId());require(snapshot["processes"][0]["running"]==true,"current process observation");
+        require(AreDpiAwarenessContextsEqual(prior_dpi,GetThreadDpiAwarenessContext())!=FALSE,"observer DPI context restored");
+        require(snapshot.contains("window_coordinate_space"),"display coordinate context recorded");
         require(!snapshot["processes"][0]["threads"].empty(),"thread inventory");
         for(const auto& t:snapshot["processes"][0]["threads"])require(t.contains("cycle_detected")||t.contains("wait_chain_error")||!snapshot["errors"].empty(),"wait chain success or explicit error");
         auto invalid_image=temp/"invalid-image.exe";b=pe();
